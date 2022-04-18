@@ -1,18 +1,15 @@
 # -*- coding: utf-8 -*-
 
-# from odoo import models, fields, api
+from odoo import models, fields, api
 
 
-# class stock_picking_info_lot(models.Model):
-#     _name = 'stock_picking_info_lot.stock_picking_info_lot'
-#     _description = 'stock_picking_info_lot.stock_picking_info_lot'
+class ProductTemplate(models.Model):
 
-#     name = fields.Char()
-#     value = fields.Integer()
-#     value2 = fields.Float(compute="_value_pc", store=True)
-#     description = fields.Text()
-#
-#     @api.depends('value')
-#     def _value_pc(self):
-#         for record in self:
-#             record.value2 = float(record.value) / 100
+    _inherit = 'product.template'
+
+    lot_info = fields.Selection(
+        [('no', 'No'),
+         ('optional', 'Optional'),
+         ('required', 'Required')],
+        default='no',
+        string='Lot information')
