@@ -17,8 +17,7 @@
             <field name="inherit_id" ref="stock.product_template_form_view_procurement_button"/>
             <field name="arch" type="xml">
                 <button name="action_open_product_lot" position="attributes">
-<!--                    <attribute name="invisible">[('tracking', '=', 'none'), ('lot_info', '=', 'no')]</attribute>-->
-                    <attribute name="invisible">[('tracking', '=', 'none')]</attribute>
+                    <attribute name="attrs">{'invisible': [('tracking', '=', 'none'), ('lot_info', '=', 'no')]}</attribute>
                 </button>
             </field>
         </record>
@@ -29,7 +28,7 @@
             <field name="inherit_id" ref="stock.product_form_view_procurement_button"/>
             <field name="arch" type="xml">
                 <button name="action_open_product_lot" position="attributes">
-                    <attribute name="invisible">[('tracking', '=', 'none'), ('lot_info', '=', 'no')]</attribute>
+                    <attribute name="attrs">{'invisible': [('tracking', '=', 'none'), ('lot_info', '=', 'no')]}</attribute>
                 </button>
             </field>
         </record>
