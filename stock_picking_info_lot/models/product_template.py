@@ -7,9 +7,9 @@ class ProductTemplate(models.Model):
 
     _inherit = 'product.template'
 
-    lot_info = fields.Selection(
+    lot_info_usage = fields.Selection(
         [('no', 'No'),
          ('optional', 'Optional'),
          ('required', 'Required')],
         default='no',
-        string='Lot information')
+        string='Lot information usage')
