@@ -24,3 +24,5 @@ class StockMoveLine(models.Model):
          ('optional', 'Optional'),
          ('required', 'Required')],
         related='product_id.product_tmpl_id.lot_info_usage')
+
+
