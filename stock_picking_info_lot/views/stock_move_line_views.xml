@@ -34,6 +34,22 @@
             </field>
         </record>
 
+        <record id="view_stock_move_line_operation_tree" model="ir.ui.view">
+            <field name="name">stock.move.line.operations.tree</field>
+            <field name="model">stock.move.line</field>
+            <field name="inherit_id" ref="stock.view_stock_move_line_operation_tree"/>
+            <field name="arch" type="xml">
+                <xpath expr="//field[@name='lot_name']" position="after">
+                    <field name="lot_info_usage" invisible="1"/>
+                    <field name="lot_info"
+                           attrs="{
+                           'readonly': [('lot_info_usage', '=', 'no')],
+                           'required': [('lot_info_usage', '=', 'required')],
+                           }"/>
+                </xpath>
+            </field>
+        </record>
+
         <record id="view_stock_move_line_detailed_operation_tree" model="ir.ui.view">
             <field name="name">stock.move.line.operations.tree</field>
             <field name="model">stock.move.line</field>
@@ -59,7 +75,8 @@
                     <field name="lot_info"
                            attrs="{
                            'readonly': [('lot_info_usage', '=', 'no')],
-                           'required': [('lot_info_usage', '=', 'required')],}"/>
+                           'required': [('lot_info_usage', '=', 'required')],
+                           }"/>
                 </xpath>
             </field>
         </record>
