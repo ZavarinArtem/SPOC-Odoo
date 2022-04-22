@@ -60,21 +60,6 @@
                     <field name="lot_info"
                            attrs="{
                            'readonly': [('lot_info_usage', '=', 'no')],
-                           'required': [('lot_info_usage', '=', 'required')],}"/>
-                </xpath>
-            </field>
-        </record>
-
-        <record id="view_picking_form" model="ir.ui.view">
-            <field name="name">stock.picking.form</field>
-            <field name="model">stock.picking</field>
-            <field name="inherit_id" ref="stock.view_picking_form"/>
-            <field name="arch" type="xml">
-                <xpath expr="//page[@name='operations']//field[@name='lot_ids']" position="after">
-                    <field name="lot_info_usage" invisible="1"/>
-                    <field name="lot_info"
-                           attrs="{
-                           'readonly': [('lot_info_usage', '=', 'no')],
                            'required': [('lot_info_usage', '=', 'required')],
                            }"/>
                 </xpath>
