@@ -1,0 +1,15 @@
+<odoo>
+    <data>
+        <record model="ir.ui.view" id="openacademy_instructor_view_form">
+            <field name="name">spoc_module.res.partner.fon</field>
+            <field name="model">res.partner</field>
+            <field name="inherit_id" ref="base.view_partner_form" />
+            <field name="arch" type="xml">
+                <xpath expr="//field[@name='category_id']" position="after">
+                    <field name="is_group" />
+                    <field name="parent_group_id" />
+                </xpath>
+            </field>
+        </record>
+    </data>
+</odoo>
