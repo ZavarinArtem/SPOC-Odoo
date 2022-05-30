@@ -1,0 +1,4 @@
+.product_name_wider_class tr > th:nth-child(2){
+    width: 500px;
+    background-color:red;
+ }
