@@ -1,4 +1,3 @@
-.product_name_wider_class tr > th:nth-child(2){
+.product_name_wider_class > .table-responsive > table thead > tr > th[data-name="name"]{
     width: 500px;
-    background-color:red;
  }

@@ -14,4 +14,9 @@
     "data": [
         "views/product.xml",
     ],
+    "assets": {
+        "web.assets_backend": [
+            "product_name_wider_in_tree_view/static/src/css/product_name_wider_class.css",
+        ],
+    },
 }
