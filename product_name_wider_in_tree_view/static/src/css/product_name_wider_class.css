@@ -1,3 +1,4 @@
 .product_name_wider_class > .table-responsive > table thead > tr > th[data-name="name"]{
-    width: 500px;
+    max-width: 500px !important;
+    width: 500px !important;
  }
