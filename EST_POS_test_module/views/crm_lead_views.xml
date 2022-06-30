@@ -1,0 +1,32 @@
+<?xml version="1.0"?>
+<odoo>
+    <record id="act_crm_create_new_lead_new" model="ir.actions.act_window">
+        <field name="name">Create new lead</field>
+        <field name="res_model">crm.lead</field>
+        <field name="view_mode">form</field>
+        <field name="target">new</field>
+    </record>
+
+    <record id="crm_lead_view_form" model="ir.ui.view">
+        <field name="name">crm.lead.form (inherited)</field>
+        <field name="model">crm.lead</field>
+        <field name="inherit_id" ref="crm.crm_lead_view_form"/>
+        <field name="arch" type="xml">
+            <xpath expr="//notebook/page[@name='lead']" position="after">
+                <page name="next_leads_page" string="Next Leads">
+                    <field name="next_leads">
+                        <tree decoration-danger="never_had_leads == True" decoration-warning="has_lead_older_28 == True">
+                            <field name="never_had_leads" invisible="1"/>
+                            <field name="has_lead_older_28" invisible="1"/>
+                            <field name="name"/>
+                            <field name="email"/>
+                            <field name="phone"/>
+                            <button name="%(act_crm_create_new_lead_new)d" string="Create new lead" type="action"
+                                    context="{'default_partner_id': id}"/>
+                        </tree>
+                    </field>
+                </page>
+            </xpath>
+        </field>
+    </record>
+</odoo>
