@@ -15,7 +15,8 @@
             <xpath expr="//notebook/page[@name='lead']" position="after">
                 <page name="next_leads_page" string="Next Leads">
                     <field name="next_leads">
-                        <tree decoration-danger="never_had_leads == True" decoration-warning="has_lead_older_28 == True">
+                        <tree decoration-danger="never_had_leads == True" decoration-warning="has_lead_older_28 == True"
+                              default_order="name">
                             <field name="never_had_leads" invisible="1"/>
                             <field name="has_lead_older_28" invisible="1"/>
                             <field name="name"/>
