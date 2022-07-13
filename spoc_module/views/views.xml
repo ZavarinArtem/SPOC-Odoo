@@ -1,13 +1,17 @@
 <odoo>
     <data>
-        <record model="ir.ui.view" id="openacademy_instructor_view_form">
-            <field name="name">spoc_module.res.partner.fon</field>
+        <record model="ir.ui.view" id="view_partner_form">
+            <field name="name">spoc_module.res.partner.form</field>
             <field name="model">res.partner</field>
             <field name="inherit_id" ref="base.view_partner_form" />
             <field name="arch" type="xml">
-                <xpath expr="//field[@name='category_id']" position="after">
-                    <field name="is_group" />
-                    <field name="parent_group_id" />
+                <xpath expr="//div[hasclass('oe_title')]/div[hasclass('o_row')]" position="after">
+                    <div id="fill_name" class="oe_title" attrs="{'invisible': [('is_company','=', False)]}">
+                        <label for="full_name" class="oe_edit_only"/>
+                        <h2>
+                            <field name="full_name" />
+                        </h2>
+                    </div>
                 </xpath>
             </field>
         </record>

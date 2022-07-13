@@ -4,15 +4,18 @@ from odoo import fields, models
 class Partner(models.Model):
     _inherit = "res.partner"
 
-    parent_group_id = fields.Many2one(comodel_name="res.partner", string="Group")
-    child_group_ids = fields.One2many(
-        "res.partner",
-        "parent_group_id",
-        string="Elements",
-        domain=[("active", "=", True)],
-    )
-    _parent_name = "parent_group_id"
-    _parent_store = True
+    full_name = fields.Char(string="Full Name")
 
-    parent_path = fields.Char(index=True)
-    is_group = fields.Boolean("It's a group")
+    def write(self, vals):
+
+        if self.is_company and (
+            (
+                (self.full_name == "" or self.full_name == False)
+                and ("full_name" not in vals)
+            )
+            or vals["full_name"] == ""
+            or vals["full_name"] == False
+        ):
+            vals["full_name"] = self.name
+
+        return super().write(vals)
