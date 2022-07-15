@@ -13,8 +13,10 @@ class Partner(models.Model):
                 (self.full_name == "" or self.full_name == False)
                 and ("full_name" not in vals)
             )
-            or vals["full_name"] == ""
-            or vals["full_name"] == False
+            or (
+                "full_name" in vals
+                and (vals["full_name"] == "" or vals["full_name"] == False)
+            )
         ):
             vals["full_name"] = self.name
 
