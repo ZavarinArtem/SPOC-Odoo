@@ -64,11 +64,7 @@
                                             <span style="font-weight:bold; font-style:italic">
 
                                                 address:
-                                                <t t-out="', '.join((o_en.company_id.street,
-                                                                    o_en.company_id.state_id.name,
-                                                                    o_en.company_id.city,
-                                                                    o_en.company_id.zip,
-                                                                    o_en.company_id.country_id.name,))"/>
+                                                <t t-out="o_en.company_id.partner_id.contact_address"/>
                                             </span>
                                         </p>
                                     </td>
@@ -86,11 +82,7 @@
                                             <span style="font-weight:bold; font-style:italic">
 
                                                 Адреса:
-                                                <t t-out="', '.join((o_ua.company_id.street,
-                                                                    o_ua.company_id.state_id.name,
-                                                                    o_ua.company_id.city,
-                                                                    o_ua.company_id.zip,
-                                                                    o_ua.company_id.country_id.name,))"/>
+                                                <t t-out="o_ua.company_id.partner_id.contact_address"/>
                                             </span>
                                         </p>
                                     </td>
