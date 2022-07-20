@@ -100,11 +100,7 @@
                                         <p class="BodyTextIndent"
                                            style="margin-left:0pt; margin-bottom:0pt; font-size:11pt">
                                             <span style="font-weight:bold; font-style:italic">
-                                                <t t-out="', '.join((o_en.partner_id.street,
-                                                                    o_en.partner_id.state_id.name,
-                                                                    o_en.partner_id.city,
-                                                                    o_en.partner_id.zip,
-                                                                    o_en.partner_id.country_id.name,))"/>
+                                                <t t-out="o_en.partner_id.contact_address"/>
                                             </span>
                                         </p>
                                     </td>
@@ -120,11 +116,7 @@
                                         </p>
                                         <p class="HTMLPreformatted" style="font-size:11pt; ">
                                             <span style="font-weight:bold; font-style:italic">
-                                                <t t-out="', '.join((o_ua.partner_id.street,
-                                                                    o_ua.partner_id.state_id.name,
-                                                                    o_ua.partner_id.city,
-                                                                    o_ua.partner_id.zip,
-                                                                    o_ua.partner_id.country_id.name,))"/>
+                                                <t t-out="o_ua.partner_id.contact_address"/>
                                             </span>
                                         </p>
                                     </td>
