@@ -16,11 +16,13 @@
     "depends": [
         "base",
         "product",
+        "account",
     ],
     # always loaded
     "data": [
         # 'security/ir.model.access.csv',
         "views/views.xml",
+        "views/account_report.xml"
     ],
     # only loaded in demonstration mode
     # 'demo': [

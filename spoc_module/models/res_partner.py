@@ -4,7 +4,7 @@ from odoo import fields, models
 class Partner(models.Model):
     _inherit = "res.partner"
 
-    full_name = fields.Char(string="Full Name")
+    full_name = fields.Char(string="Full Name", translate=True)
 
     def write(self, vals):
 

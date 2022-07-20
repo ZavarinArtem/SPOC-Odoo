@@ -1,0 +1,522 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+        <!-- QWeb Reports -->
+        <record id="account_invoices" model="ir.actions.report">
+            <field name="name">Invoices (multilanguage)</field>
+            <field name="model">account.move</field>
+            <field name="report_type">qweb-pdf</field>
+            <field name="report_name">spoc_module.report_invoice</field>
+            <field name="report_file">spoc_module.report_invoice</field>
+            <field name="print_report_name">(object._get_report_base_filename())</field>
+            <field name="binding_model_id" ref="account.model_account_move"/>
+            <field name="binding_type">report</field>
+            <field name="groups_id" eval="[(4, ref('account.group_account_invoice')),
+ (4, ref('account.group_account_readonly'))]"/>
+        </record>
+
+        <template id="report_invoice">
+            <t t-call="web.html_container">
+                <t t-foreach="docs" t-as="o">
+                    <t t-call="web.basic_layout">
+                        <t t-set="o_ua" t-value="o.with_context(lang='uk_UA')"/>
+                        <t t-set="o_en" t-value="o.with_context(lang='en_US')"/>
+
+                        <div>
+                            <p style="font-size:10pt">
+                                <span style="font-weight:bold; font-style:italic">Invoice /Інвойс №
+                                    <t t-out="o_ua.name"/>
+                                </span>
+                            </p>
+                            <table cellspacing="0" cellpadding="0" style="width:567.8pt; border-collapse:collapse">
+                                <tr>
+                                    <td colspan="2"
+                                        style="width:251.5pt; padding-right:5.4pt; padding-left:5.03pt; vertical-align:top; border: 0.75pt solid #000;">
+                                        <p style="font-size:10pt">
+                                            <span style="font-weight:bold; font-style:italic">Date of invoice:</span>
+                                            <span style="font-weight:bold; font-style:italic; ">
+                                                <t t-out="o_en._get_locale_invoice_date('en')"/>
+                                            </span>
+                                        </p>
+                                    </td>
+                                    <td colspan="5"
+                                        style="width:293.95pt; padding-right:5.03pt; padding-left:5.03pt; vertical-align:top; border: 0.75pt solid #000;">
+                                        <p style="font-size:10pt">
+                                            <span style="font-size:9pt; font-weight:bold; ">Дата інвойса:</span>
+                                            <span style="font-weight:bold; font-style:italic; ">
+                                                <t t-out="o_ua._get_locale_invoice_date('uk_UA')"/>
+                                            </span>
+                                        </p>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td colspan="2"
+                                        style="width:251.5pt; padding-right:5.4pt; padding-left:5.03pt; vertical-align:top; border: 0.75pt solid #000;">
+                                        <p style="font-size:11pt">
+                                            <span style="font-weight:bold; font-style:italic">Supplier:</span>
+                                        </p>
+                                        <p style="font-size:11pt">
+                                            <span style="font-weight:bold; font-style:italic">
+                                                <t t-out="o_en.company_id.partner_id.full_name"/>
+                                            </span>
+                                        </p>
+                                        <p style="font-size:11pt">
+                                            <span style="font-weight:bold; font-style:italic">
+
+                                                address:
+                                                <t t-out="', '.join((o_en.company_id.street,
+                                                                    o_en.company_id.state_id.name,
+                                                                    o_en.company_id.city,
+                                                                    o_en.company_id.zip,
+                                                                    o_en.company_id.country_id.name,))"/>
+                                            </span>
+                                        </p>
+                                    </td>
+                                    <td colspan="5"
+                                        style="width:293.95pt; padding-right:5.03pt; padding-left:5.03pt; vertical-align:top; border: 0.75pt solid #000;">
+                                        <p style="font-size:11pt">
+                                            <span style="font-weight:bold; font-style:italic">Виконавець</span>
+                                        </p>
+                                        <p style="font-size:11pt">
+                                            <span style="font-weight:bold; font-style:italic; ">
+                                                <t t-out="o_ua.company_id.partner_id.full_name"/>
+                                            </span>
+                                        </p>
+                                        <p style="font-size:11pt">
+                                            <span style="font-weight:bold; font-style:italic">
+
+                                                Адреса:
+                                                <t t-out="', '.join((o_ua.company_id.street,
+                                                                    o_ua.company_id.state_id.name,
+                                                                    o_ua.company_id.city,
+                                                                    o_ua.company_id.zip,
+                                                                    o_ua.company_id.country_id.name,))"/>
+                                            </span>
+                                        </p>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td colspan="2"
+                                        style="width:251.5pt; padding-right:5.4pt; padding-left:5.03pt; vertical-align:top; border: 0.75pt solid #000;">
+                                        <p class="BodyTextIndent"
+                                           style="margin-left:0pt; margin-bottom:0pt; font-size:11pt">
+                                            <span style="font-weight:bold; font-style:italic; ">Customer:</span>
+                                            <span style="font-weight:bold; font-style:italic">
+                                                <t t-out="o_en.partner_id.full_name"/>
+                                            </span>
+                                        </p>
+                                        <p class="BodyTextIndent"
+                                           style="margin-left:0pt; margin-bottom:0pt; font-size:11pt">
+                                            <span style="font-weight:bold; font-style:italic">
+                                                <t t-out="', '.join((o_en.partner_id.street,
+                                                                    o_en.partner_id.state_id.name,
+                                                                    o_en.partner_id.city,
+                                                                    o_en.partner_id.zip,
+                                                                    o_en.partner_id.country_id.name,))"/>
+                                            </span>
+                                        </p>
+                                    </td>
+                                    <td colspan="5"
+                                        style="width:293.95pt; padding-right:5.03pt; padding-left:5.03pt; vertical-align:top; border: 0.75pt solid #000;">
+                                        <p class="HTMLPreformatted" style="font-size:11pt; ">
+                                            <span style="font-family:'Times New Roman'; font-size:10pt; font-weight:bold; ">
+                                                Замовник:
+                                            </span>
+                                            <span style="font-family:'Times New Roman'; font-weight:bold; font-style:italic">
+                                                <t t-out="o_ua.partner_id.full_name"/>
+                                            </span>
+                                        </p>
+                                        <p class="HTMLPreformatted" style="font-size:11pt; ">
+                                            <span style="font-weight:bold; font-style:italic">
+                                                <t t-out="', '.join((o_ua.partner_id.street,
+                                                                    o_ua.partner_id.state_id.name,
+                                                                    o_ua.partner_id.city,
+                                                                    o_ua.partner_id.zip,
+                                                                    o_ua.partner_id.country_id.name,))"/>
+                                            </span>
+                                        </p>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td colspan="2"
+                                        style="width:251.5pt; padding-right:5.4pt; padding-left:5.03pt; vertical-align:top; border: 0.75pt solid #000;">
+                                        <p style="font-size:11pt">
+                                            <span style="font-weight:bold">Currency:</span>
+                                            <span style="font-weight:bold; font-style:italic">
+                                                <t t-out="o_en.currency_id.name"/>
+                                            </span>
+                                        </p>
+                                    </td>
+                                    <td colspan="5"
+                                        style="width:293.95pt; padding-right:5.03pt; padding-left:5.03pt; vertical-align:top; ; border: 0.75pt solid #000;">
+                                        <p style="font-size:11pt">
+                                            <span style="font-weight:bold">Валюта:</span>
+                                            <span style="font-weight:bold; font-style:italic">
+                                                <t t-out="o_ua.currency_id.name"/>
+                                            </span>
+                                        </p>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td colspan="2"
+                                        style="width:251.5pt; padding-right:5.4pt; padding-left:5.03pt; vertical-align:top; border: 0.75pt solid #000;">
+                                        <p style="font-size:11pt">
+                                            <span style="font-weight:bold; ">Price:</span>
+                                            <span style="font-weight:bold; font-style:italic; ">
+                                                <t t-out="o_en._get_total_in_words('en', True)"/>
+                                            </span>
+                                        </p>
+                                    </td>
+                                    <td colspan="5"
+                                        style="width:293.95pt; padding-right:5.03pt; padding-left:5.03pt; vertical-align:top; border: 0.75pt solid #000;">
+                                        <p style="font-size:11pt">
+                                            <span style="font-weight:bold; ">Ціна:</span>
+                                            <span style="font-weight:bold; font-style:italic; ">
+                                                <t t-out="o_ua._get_total_in_words('uk_UA', True)"/>
+                                            </span>
+                                        </p>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td colspan="7"
+                                        style="width:556.25pt; padding-right:5.03pt; padding-left:5.03pt; vertical-align:top; border: 0.75pt solid #000;">
+                                        <table cellspacing="2" cellpadding="0" style="border-spacing:1.5pt">
+                                            <tr>
+                                                <td style="width:253.15pt; padding:0.75pt; vertical-align:top">
+                                                    <p style="line-height:120%; font-size:10pt">
+                                                        <span style="font-weight:bold">Наименование предприятия/Company
+                                                            Name
+                                                        </span>
+                                                    </p>
+                                                </td>
+                                                <td style="width:293.9pt; padding:0.75pt; vertical-align:top">
+                                                    <p style="line-height:120%; font-size:10pt">
+                                                        <span style="font-weight:bold; font-style:italic">
+                                                            <t t-out="o_ua.company_id.partner_id.full_name"/>
+                                                        </span>
+                                                    </p>
+                                                    <p style="font-size:11pt">
+                                                        <span style="font-weight:bold; font-style:italic">
+                                                            <t t-out="o_en.company_id.partner_id.full_name"/>
+                                                        </span>
+                                                    </p>
+                                                </td>
+                                            </tr>
+                                            <tr>
+                                                <td style="width:253.15pt; padding:0.75pt; vertical-align:top">
+                                                    <p style="line-height:120%; font-size:10pt">
+                                                        <span style="font-weight:bold">
+                                                            Счет предприятия в банке/The bank account of the company
+                                                            (IBAN Code)
+                                                        </span>
+                                                    </p>
+                                                </td>
+                                                <td style="width:293.9pt; padding:0.75pt; vertical-align:top">
+                                                    <p style="line-height:120%; font-size:10pt">
+                                                        <span style="line-height:120%; font-size:9pt; font-weight:bold">
+                                                            <t t-out="o_en.partner_bank_id.acc_number"/>
+                                                        </span>
+                                                    </p>
+                                                </td>
+                                            </tr>
+                                            <tr>
+                                                <td style="width:253.15pt; padding:0.75pt; vertical-align:top">
+                                                    <p style="line-height:120%; font-size:9pt">
+                                                        <span style="font-weight:bold">Наименование банка/Name of the
+                                                            bank
+                                                        </span>
+                                                    </p>
+                                                </td>
+                                                <td style="width:293.9pt; padding:0.75pt; vertical-align:top">
+                                                    <p style="line-height:120%; font-size:10pt">
+                                                        <span style="line-height:120%; font-size:9pt; font-weight:bold">
+                                                            <t t-out="o_en.partner_bank_id.bank_name"/>
+                                                        </span>
+                                                    </p>
+                                                </td>
+                                            </tr>
+                                            <tr>
+                                                <td style="width:253.15pt; padding:0.75pt; vertical-align:top">
+                                                    <p style="line-height:120%; font-size:9pt">
+                                                        <span style="font-weight:bold">SWIFT Code банка/Bank SWIFT Code
+                                                        </span>
+                                                    </p>
+                                                </td>
+                                                <td style="width:293.9pt; padding:0.75pt; vertical-align:top">
+                                                    <p style="line-height:120%; font-size:10pt">
+                                                        <span style="line-height:120%; font-size:9pt; font-weight:bold">
+                                                            <t t-out="o_en.partner_bank_id.bank_SWIFT_Code"/>
+                                                        </span>
+                                                    </p>
+                                                </td>
+                                            </tr>
+                                            <tr>
+                                                <td colspan="2"
+                                                    style="width:550.05pt; padding:0.75pt; vertical-align:top">
+                                                    <p style="line-height:120%; font-size:10pt">
+                                                        <span style="font-weight:bold">
+                                                            Банки-корреспонденты/Correspondent banks:
+                                                        </span>
+                                                    </p>
+                                                </td>
+                                            </tr>
+                                            <tr>
+                                                <td style="width:253.15pt; padding:0.75pt; vertical-align:top">
+                                                    <p style="line-height:120%; font-size:10pt">
+                                                        <span style="font-weight:bold">Счет в
+                                                            банке-корреспонденте/Account in the correspondent bank
+                                                        </span>
+                                                    </p>
+                                                </td>
+                                                <td style="width:293.9pt; padding:0.75pt; vertical-align:top">
+                                                    <p style="line-height:120%; font-size:10pt">
+                                                        <span style="font-weight:bold">
+                                                            <t t-out="o_en.partner_bank_id.corr_account"/>
+                                                        </span>
+                                                    </p>
+                                                </td>
+                                            </tr>
+                                            <tr>
+                                                <td style="width:253.15pt; padding:0.75pt; vertical-align:top">
+                                                    <p style="font-size:10pt">
+                                                        <span style="font-weight:bold">SWIFT Code
+                                                            банку-кореспонденту/SWIFT-code of the correspondent bank
+                                                        </span>
+                                                    </p>
+                                                </td>
+                                                <td style="width:293.9pt; padding:0.75pt; vertical-align:top">
+                                                    <p style="font-size:10pt">
+                                                        <span style="font-weight:bold">
+                                                            <t t-out="o_en.partner_bank_id.corr_SWIFT_code"/>
+                                                        </span>
+                                                    </p>
+                                                </td>
+                                            </tr>
+                                            <tr>
+                                                <td style="width:253.15pt; padding:0.75pt; vertical-align:top">
+                                                    <p style="font-size:10pt">
+                                                        <span style="font-weight:bold">Банк-кореспондент/Correspondent
+                                                            bank
+                                                        </span>
+                                                    </p>
+                                                </td>
+                                                <td style="width:293.9pt; padding:0.75pt; vertical-align:top">
+                                                    <p style="font-size:10pt">
+                                                        <span style="font-weight:bold">
+                                                            <t t-out="o_en.partner_bank_id.corr_bank_id.name"/>
+                                                        </span>
+                                                    </p>
+                                                </td>
+                                            </tr>
+                                        </table>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td style="padding-right:5.4pt; padding-left:5.03pt; vertical-align:top; border: 0.75pt solid #000;">
+                                        <p style="font-size:10pt">
+                                            <span style="font-weight:bold">№</span>
+                                        </p>
+                                    </td>
+                                    <td colspan="3"
+                                        style="padding-right:5.4pt; padding-left:5.03pt; vertical-align:top; border: 0.75pt solid #000;">
+                                        <p style="font-size:10pt">
+                                            <span>Description/</span>
+                                            <span style="font-weight:bold">Опис</span>
+                                        </p>
+                                    </td>
+                                    <td style="padding-right:5.4pt; padding-left:5.03pt; vertical-align:top; border: 0.75pt solid #000;">
+                                        <p style="font-size:10pt">
+                                            <span>Quantity/</span>
+                                        </p>
+                                        <p style="font-size:10pt">
+                                            <span style="font-weight:bold">Кількість</span>
+                                        </p>
+                                    </td>
+                                    <td style="padding-right:5.4pt; padding-left:5.03pt; vertical-align:top; border: 0.75pt solid #000;">
+                                        <p style="font-size:10pt">
+                                            <span>Price,</span>
+                                            <t t-out="o_en.currency_id.name"/>
+                                        </p>
+                                        <p style="font-size:10pt">
+                                            <span style="font-weight:bold">Ціна,</span>
+                                            <t t-out="o_ua.currency_id.name"/>
+                                        </p>
+                                    </td>
+                                    <td style="padding-right:5.03pt; padding-left:5.03pt; vertical-align:top; border: 0.75pt solid #000;">
+                                        <p style="font-size:10pt">
+                                            <span>Amount,</span>
+                                            <t t-out="o_en.currency_id.name"/>
+                                        </p>
+                                        <p style="font-size:10pt">
+                                            <span style="font-weight:bold">Загальна вартість,</span>
+                                            <t t-out="o_ua.currency_id.name"/>
+                                        </p>
+                                    </td>
+                                </tr>
+                                <tr t-foreach="o_en.invoice_line_ids" t-as="line_en">
+                                    <t t-set="line_ua" t-value="o_ua.invoice_line_ids[line_en_index]"/>
+                                    <td style="padding-right:5.4pt; padding-left:5.03pt; vertical-align:top; border: 0.75pt solid #000;">
+                                        <p style="font-size:10pt">
+                                            <span style="font-weight:bold; ">
+                                                <t t-out="line_en_index + 1"/>
+                                            </span>
+                                        </p>
+                                    </td>
+                                    <td colspan="3"
+                                        style="padding-right:5.4pt; padding-left:5.03pt; vertical-align:top; ; border: 0.75pt solid #000;">
+                                        <p class="HTMLPreformatted" style="text-align:justify; ">
+                                            <span style="font-family:'Times New Roman'; font-weight:bold; font-style:italic; ">
+                                                Subject matter:
+                                            </span>
+                                            <span style="font-weight:bold; ">
+                                                <t t-out="line_en.name"/>
+                                            </span>
+                                        </p>
+                                    </td>
+                                    <td style="padding-right:5.4pt; padding-left:5.03pt; vertical-align:top; border: 0.75pt solid #000;">
+                                        <p style="text-align:right; font-size:10pt">
+                                            <span style="font-weight:bold; font-style:italic; ">
+                                                <t t-out="o_en._formatted(line_en.quantity)"/>
+                                            </span>
+                                        </p>
+                                    </td>
+                                    <td style="padding-right:5.4pt; padding-left:5.03pt; vertical-align:top; border: 0.75pt solid #000;">
+                                        <p style="text-align:right; font-size:10pt">
+                                            <span style="font-weight:bold; font-style:italic; ">
+                                                <t t-out="o_en._formatted(line_en.price_unit)"/>
+                                            </span>
+                                        </p>
+                                    </td>
+                                    <td style="padding-right:5.03pt; padding-left:5.03pt; vertical-align:top; border: 0.75pt solid #000;">
+                                        <p style="text-align:right; font-size:10pt">
+                                            <span style="font-weight:bold; font-style:italic; ">
+                                                <t t-out="o_en._formatted(line_en.price_subtotal)"/>
+                                            </span>
+                                        </p>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td style="padding-right:5.4pt; padding-left:5.03pt; vertical-align:top; border: 0.75pt solid #000;"></td>
+                                    <td colspan="3"
+                                        style="padding-right:5.4pt; padding-left:5.03pt; vertical-align:top; border: 0.75pt solid #000;"></td>
+                                    <td style="border-top-style:solid; padding-right:5.4pt; padding-left:5.03pt; vertical-align:top; border: 0.75pt solid #000;"></td>
+                                    <td style="padding-right:5.4pt; padding-left:5.03pt; vertical-align:top; border: 0.75pt solid #000;">
+                                        <p style="font-size:9pt">
+                                            <span style="font-weight:bold; font-style:italic; ">Total/Усього</span>
+                                        </p>
+                                    </td>
+                                    <td style="border-style:solid; border-width:0.75pt; padding-right:5.03pt; padding-left:5.03pt; vertical-align:top; -aw-border:0.5pt single">
+                                        <p style="text-align:right; font-size:9pt">
+                                            <span style="font-weight:bold; font-style:italic">
+                                                <t t-out="o_en._formatted(o_en.amount_total)"/>
+                                            </span>
+                                        </p>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td colspan="7"
+                                        style="width:556.25pt; padding-right:5.03pt; padding-left:5.03pt; vertical-align:top; border: 0.75pt solid #000;">
+                                        <p style="font-size:10pt">
+                                            <span style="font-size:9pt; font-weight:bold; ">Total pay:</span>
+                                            <span style="font-weight:bold; font-style:italic; ">
+                                                <t t-out="o_en._get_total_in_words('en', False)"/>
+                                            </span>
+                                        </p>
+                                        <p style="font-size:10pt">
+                                            <span style="font-size:9pt; font-weight:bold; ">Усього до сплати:</span>
+                                            <span style="font-weight:bold; font-style:italic; ">
+                                                <t t-out="o_ua._get_total_in_words('uk_UA', False)"/>
+                                            </span>
+                                        </p>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td colspan="3"
+                                        style="width:265.65pt; padding-right:5.03pt; padding-left:5.03pt; vertical-align:top; border: 0.75pt solid #000;">
+                                        <p style="text-align:justify; font-size:9pt">
+                                            <span style="font-weight:bold">This invoice must be paid in the following
+                                                order:
+                                            </span>
+                                        </p>
+                                        <p style="text-align:justify; font-size:9pt">
+                                            <span style="height:0pt; text-align:left; display:block; position:absolute; z-index:-1">
+                                                <img src="spoc_module/static/src/seal.png"
+                                                     width="184" height="153" alt=""
+                                                     style="margin-top:60.65pt; margin-left:162.2pt; -aw-left-pos:162.2pt; -aw-rel-hpos:column; -aw-rel-vpos:paragraph; -aw-top-pos:60.65pt; -aw-wrap-type:none; position:absolute;"/>
+                                            </span>
+                                            <span style="font-weight:bold">Within 3 (three) calendar days after
+                                                receiving the invoice, the Customer pays an advance payment of 100% of
+                                                the total
+                                                invoice amount. The transfer of the amount is simultaneously a
+                                                confirmation of the acceptance and transfer of the services rendered,
+                                                the final
+                                                settlements between the Parties, the absence of mutual claims between
+                                                the Parties and does not require the signing of additional documents.
+                                                All commissions of correspondent banks are paid by the Customer
+                                            </span>
+                                        </p>
+                                        <br></br>
+                                        <br></br>
+                                        <br></br>
+                                        <p style="font-size:11pt">
+                                            <span style="font-size:10pt; font-weight:bold">Supplier:</span>
+                                            <span style="font-weight:bold; font-style:italic">
+                                                <t t-out="o_en.company_id.partner_id.full_name"/>
+                                            </span>
+                                        </p>
+                                    </td>
+                                    <td colspan="4"
+                                        style="width:279.8pt; padding-right:5.03pt; padding-left:5.03pt; vertical-align:top; border: 0.75pt solid #000;">
+                                        <p style="text-align:justify; font-size:9pt">
+                                            <span style="font-weight:bold">Цей інвойс має бути оплачене в наступному
+                                                порядку:
+                                            </span>
+                                        </p>
+                                        <p style="text-align:justify; font-size:9pt">
+                                            <span style="font-weight:bold">Протягом 3 (трьох) календарних днів після
+                                                отримання інвойсу Замовник сплачує передоплату у розмірі 100% від
+                                                загальної суми інвойсу.
+                                                Перерахування суми одночасно є підтвердженням приймання-передачі наданих
+                                                послуг, остаточних розрахунків між Сторонами, відсутності між
+                                                Сторонами взаємних претензій, та не потребує підписання додаткових
+                                                документів.
+                                            </span>
+                                            <span style="font-weight:bold">Усі комісії банків-кореспондентів сплачує
+                                                Замовник.
+                                            </span>
+                                        </p>
+                                        <br></br>
+                                        <br></br>
+                                        <br></br>
+                                        <p style="font-size:11pt">
+                                            <span style="font-size:10pt; font-weight:bold; font-style:italic">
+                                                Виконавець
+                                            </span>
+                                            <span style="font-weight:bold; font-style:italic; text-transform:uppercase">
+                                                :
+                                            </span>
+                                            <span style="font-weight:bold; font-style:italic; ">
+                                                <t t-out="o_ua.company_id.partner_id.full_name"/>
+                                            </span>
+                                        </p>
+                                    </td>
+                                </tr>
+                                <tr style="height:0pt">
+                                    <td style="width:29.15pt"></td>
+                                    <td style="width:233.15pt"></td>
+                                    <td style="width:14.15pt"></td>
+                                    <td style="width:85.05pt"></td>
+                                    <td style="width:63.8pt"></td>
+                                    <td style="width:70.85pt"></td>
+                                    <td style="width:70.9pt"></td>
+                                </tr>
+                            </table>
+                        </div>
+
+                    </t>
+                </t>
+            </t>
+        </template>
+
+    </data>
+</odoo>
