@@ -6,6 +6,10 @@ class Partner(models.Model):
 
     full_name = fields.Char(string="Full Name", translate=True)
 
+    street = fields.Char(translate=True)
+    street2 = fields.Char(translate=True)
+    city = fields.Char(translate=True)
+
     def write(self, vals):
 
         if self.is_company and (
@@ -21,3 +25,22 @@ class Partner(models.Model):
             vals["full_name"] = self.name
 
         return super().write(vals)
+
+
+class CountryState(models.Model):
+
+    _inherit = 'res.country.state'
+
+    name = fields.Char(translate=True)
+
+
+class Currency(models.Model):
+
+    _inherit = "res.currency"
+    name = fields.Char(translate=True)
+
+
+class Bank(models.Model):
+
+    _inherit = 'res.bank'
+    name = fields.Char(translate=True)

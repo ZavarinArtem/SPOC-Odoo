@@ -22,7 +22,7 @@ class AccountMove(models.Model):
                     False,
                     locale_code,
                     "currency",
-                    currency=self.currency_id.name,
+                    currency=self.currency_id.with_context(lang='en_US').name,
                 ),
             )
         else:
@@ -31,6 +31,29 @@ class AccountMove(models.Model):
                 False,
                 locale_code,
                 "currency",
-                currency=self.currency_id.name,
+                currency=self.currency_id.with_context(lang='en_US').name,
             )
 
+
+class AccountMoveLine(models.Model):
+
+    _inherit = "account.move.line"
+
+    def _get_computed_name_with_context(self):
+        self.ensure_one()
+
+        if not self.product_id:
+            return ''
+
+        product = self.product_id
+
+        values = []
+        if product.partner_ref:
+            values.append(product.name)
+        if self.journal_id.type == 'sale':
+            if product.description_sale:
+                values.append(product.description_sale)
+        elif self.journal_id.type == 'purchase':
+            if product.description_purchase:
+                values.append(product.description_purchase)
+        return '\n'.join(values)

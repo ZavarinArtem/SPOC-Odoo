@@ -7,7 +7,7 @@
             <field name="model">account.move</field>
             <field name="report_type">qweb-pdf</field>
             <field name="report_name">spoc_module.report_invoice</field>
-            <field name="report_file">spoc_module.report_invoice</field>
+<!--            <field name="report_file">spoc_module.report_invoice</field>-->
             <field name="print_report_name">(object._get_report_base_filename())</field>
             <field name="binding_model_id" ref="account.model_account_move"/>
             <field name="binding_type">report</field>
@@ -64,7 +64,7 @@
                                             <span style="font-weight:bold; font-style:italic">
 
                                                 address:
-                                                <t t-out="o_en.company_id.partner_id.contact_address"/>
+                                                <t t-out="o_en.company_id.partner_id._display_address(True)"/>
                                             </span>
                                         </p>
                                     </td>
@@ -82,7 +82,7 @@
                                             <span style="font-weight:bold; font-style:italic">
 
                                                 Адреса:
-                                                <t t-out="o_ua.company_id.partner_id.contact_address"/>
+                                                <t t-out="o_ua.company_id.partner_id._display_address(True)"/>
                                             </span>
                                         </p>
                                     </td>
@@ -100,7 +100,7 @@
                                         <p class="BodyTextIndent"
                                            style="margin-left:0pt; margin-bottom:0pt; font-size:11pt">
                                             <span style="font-weight:bold; font-style:italic">
-                                                <t t-out="o_en.partner_id.contact_address"/>
+                                                <t t-out="o_en.partner_id._display_address(True)"/>
                                             </span>
                                         </p>
                                     </td>
@@ -116,7 +116,7 @@
                                         </p>
                                         <p class="HTMLPreformatted" style="font-size:11pt; ">
                                             <span style="font-weight:bold; font-style:italic">
-                                                <t t-out="o_ua.partner_id.contact_address"/>
+                                                <t t-out="o_ua.partner_id._display_address(True)"/>
                                             </span>
                                         </p>
                                     </td>
@@ -353,7 +353,9 @@
                                                 Subject matter:
                                             </span>
                                             <span style="font-weight:bold; ">
-                                                <t t-out="line_en.name"/>
+                                                <t t-out="line_en._get_computed_name_with_context()"/>
+                                                /
+                                                <t t-out="line_ua._get_computed_name_with_context()"/>
                                             </span>
                                         </p>
                                     </td>
