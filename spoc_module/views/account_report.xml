@@ -20,7 +20,7 @@
                 <t t-foreach="docs" t-as="o">
                     <t t-call="web.basic_layout">
                         <t t-set="o_ua" t-value="o.with_context(lang='uk_UA')"/>
-                        <t t-set="o_en" t-value="o.with_context(lang='en_US')"/>
+                        <t t-set="o_en" t-value="o.with_context(lang='en_GB')"/>
 
                         <div>
                             <p style="font-size:10pt">
@@ -35,7 +35,7 @@
                                         <p style="font-size:10pt">
                                             <span style="font-weight:bold; font-style:italic">Date of invoice:</span>
                                             <span style="font-weight:bold; font-style:italic; ">
-                                                <t t-out="o_en._get_locale_invoice_date('en')"/>
+                                                <t t-out="o_en._get_locale_invoice_date('en_GB')"/>
                                             </span>
                                         </p>
                                     </td>
@@ -147,7 +147,7 @@
                                         <p style="font-size:11pt">
                                             <span style="font-weight:bold; ">Price:</span>
                                             <span style="font-weight:bold; font-style:italic; ">
-                                                <t t-out="o_en._get_total_in_words('en', True)"/>
+                                                <t t-out="o_en._get_total_in_words('en_GB', True)"/>
                                             </span>
                                         </p>
                                     </td>
@@ -405,7 +405,7 @@
                                         <p style="font-size:10pt">
                                             <span style="font-size:9pt; font-weight:bold; ">Total pay:</span>
                                             <span style="font-weight:bold; font-style:italic; ">
-                                                <t t-out="o_en._get_total_in_words('en', False)"/>
+                                                <t t-out="o_en._get_total_in_words('en_GB', False)"/>
                                             </span>
                                         </p>
                                         <p style="font-size:10pt">
