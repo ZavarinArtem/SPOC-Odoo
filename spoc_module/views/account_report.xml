@@ -22,7 +22,7 @@
                         <t t-set="o_ua" t-value="o.with_context(lang='uk_UA')"/>
                         <t t-set="o_en" t-value="o.with_context(lang='en_GB')"/>
 
-                        <div>
+                        <div style="font-family:'Times New Roman'; ">
                             <p style="font-size:10pt">
                                 <span style="font-weight:bold; font-style:italic">Invoice /Інвойс №
                                     <t t-out="o_ua.name"/>
