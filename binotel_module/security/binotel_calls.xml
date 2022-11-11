@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- Copyright <YEAR(S)> <AUTHOR(S)>
+     License AGPL-3.0 or later (https://www.gnu.org/licenses/agpl). -->
+
+<odoo>
+
+<record id="res_groups_binotel_user" model="res.groups">
+    <field name="name">Binotel User</field>
+    <field name="comment">
+        This user can work with Binotel models
+    </field>
+    <field name="category_id" ref="module_ip_telephony" />
+</record>
+
+<record id="res_groups_binotel_admin" model="res.groups">
+    <field name="name">Binotel Admin</field>
+    <field name="implied_ids" eval="[(4, ref('res_groups_binotel_user'))]"/>
+    <field name="comment">
+        Gets access to some advanced features
+    </field>
+    <field name="category_id" ref="module_ip_telephony"/>
+    <field name="users" eval="[(4, ref('base.user_admin'))]"/>
+</record>
+
+</odoo>

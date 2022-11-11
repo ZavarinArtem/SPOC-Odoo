@@ -1,0 +1,110 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- Copyright <YEAR(S)> <AUTHOR(S)>
+     License AGPL-3.0 or later (https://www.gnu.org/licenses/agpl). -->
+
+<odoo>
+
+    <!--Actions-->
+    <record id="binotel_calls_action" model="ir.actions.act_window">
+        <field name="name">Binotel Calls</field>
+        <field name="type">ir.actions.act_window</field>
+        <field name="res_model">binotel.calls</field>
+        <field name="view_mode">tree</field>
+    </record>
+
+    <record id="binotel_users_action" model="ir.actions.act_window">
+        <field name="name">Binotel Users</field>
+        <field name="type">ir.actions.act_window</field>
+        <field name="res_model">binotel.users</field>
+        <field name="view_mode">tree</field>
+    </record>
+    <record id="binotel_load_users_action" model="ir.actions.server">
+        <field name="name">Binotel; Load Binotel Users</field>
+        <field name="model_id" ref="binotel_module.model_binotel_users"/>
+        <field name="state">code</field>
+        <field name="code">model._load_users()</field>
+    </record>
+
+    <record id="binotel_partners_action" model="ir.actions.act_window">
+        <field name="name">Binotel Partners</field>
+        <field name="type">ir.actions.act_window</field>
+        <field name="res_model">binotel.partners</field>
+        <field name="view_mode">tree</field>
+    </record>
+    <record id="binotel_partner_change_reg_action" model="ir.actions.act_window">
+        <field name="name">Change Register</field>
+        <field name="type">ir.actions.act_window</field>
+        <field name="res_model">binotel.partner.change.reg</field>
+        <field name="view_mode">tree</field>
+    </record>
+
+    <record id="binotel_settings_action" model="ir.actions.act_window">
+        <field name="name">Settings</field>
+        <field name="type">ir.actions.act_window</field>
+        <field name="res_model">binotel.calls</field>
+        <field name="view_mode">tree</field>
+    </record>
+
+    <!--Menus-->
+    <menuitem
+        id="binotel_main_menu"
+        name="Binotel"
+        web_icon="binotel_module,static/description/icon.png"
+        groups="res_groups_binotel_user"
+    />
+        <menuitem
+            id="binotel_calls_menu"
+            name="Calls"
+            parent="binotel_main_menu"
+            action="binotel_calls_action"
+            groups="res_groups_binotel_user"
+        />
+        <menuitem
+            id="binotel_settings_menu"
+            name="Settings"
+            parent="binotel_main_menu"
+            groups="res_groups_binotel_user"
+        />
+            <menuitem
+                id="binotel_users_main_menu"
+                name="Users"
+                parent="binotel_settings_menu"
+                groups="res_groups_binotel_user"
+            />
+                <menuitem
+                    id="binotel_users_menu"
+                    name="Users"
+                    parent="binotel_users_main_menu"
+                    action="binotel_users_action"
+                    groups="res_groups_binotel_user"
+                />
+                <menuitem
+                    id="binotel_load_users_menu"
+                    name="Load Users"
+                    parent="binotel_users_main_menu"
+                    action="binotel_load_users_action"
+                    groups="res_groups_binotel_admin"
+                />
+            <menuitem
+                id="binotel_partners_main_menu"
+                name="Partners"
+                parent="binotel_settings_menu"
+                groups="res_groups_binotel_user"
+            />
+                <menuitem
+                    id="binotel_partners_menu"
+                    name="Partners"
+                    parent="binotel_partners_main_menu"
+                    action="binotel_partners_action"
+                    groups="res_groups_binotel_user"
+                />
+                <menuitem
+                    id="binotel_partner_change_reg_menu"
+                    name="Change Register"
+                    parent="binotel_partners_main_menu"
+                    action="binotel_partner_change_reg_action"
+                    groups="res_groups_binotel_admin"
+                />
+
+
+</odoo>

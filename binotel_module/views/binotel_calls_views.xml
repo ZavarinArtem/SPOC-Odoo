@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- Copyright <YEAR(S)> <AUTHOR(S)>
+     License AGPL-3.0 or later (https://www.gnu.org/licenses/agpl). -->
+
+<odoo>
+
+    <record id="binotel_calls_tree_view" model="ir.ui.view">
+        <field name="name">binotel.calls.tree.view</field>
+        <field name="model">binotel.calls</field>
+        <field name="arch" type="xml">
+            <tree editable="bottom">
+                <field name="call_id" />
+                <field name="duration" />
+                <field name="phone" />
+                <field name="binotel_user" />
+                <field name="ticket" />
+            </tree>
+        </field>
+    </record>
+
+    <record id="binotel_users_tree_view" model="ir.ui.view">
+        <field name="name">binotel.users.tree.view</field>
+        <field name="model">binotel.users</field>
+        <field name="arch" type="xml">
+            <tree editable="bottom">
+                <field name="user_id" />
+                <field name="binotel_id" />
+                <field name="binotel_name" />
+            </tree>
+        </field>
+    </record>
+
+    <record id="binotel_partners_tree_view" model="ir.ui.view">
+        <field name="name">binotel.partners.tree.view</field>
+        <field name="model">binotel.partners</field>
+        <field name="arch" type="xml">
+            <tree editable="bottom">
+                <field name="partner_id" />
+                <field name="binotel_id" />
+                <field name="binotel_name" />
+            </tree>
+        </field>
+    </record>
+
+    <record id="binotel_partner_change_reg_tree_view" model="ir.ui.view">
+        <field name="name">binotel.partner.change.reg.tree.view</field>
+        <field name="model">binotel.partner.change.reg</field>
+        <field name="arch" type="xml">
+            <tree editable="bottom">
+                <field name="partner_id" />
+            </tree>
+        </field>
+    </record>
+
+</odoo>

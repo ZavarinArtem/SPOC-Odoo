@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- Copyright <YEAR(S)> <AUTHOR(S)>
+     License AGPL-3.0 or later (https://www.gnu.org/licenses/agpl). -->
+
+<odoo>
+
+    <record id="module_ip_telephony" model="ir.module.category">
+        <field name="name">IP Telephony</field>
+        <field name="description">IP Telephony integration modules</field>
+    </record>
+
+    <record id="ir_cron_load_calls" model="ir.cron">
+        <field name="name">Binotel; Load Calls</field>
+        <field name="interval_number">15</field>
+        <field name="interval_type">minutes</field>
+        <field name="numbercall">-1</field>
+        <field name="doall" eval="False"/>
+        <field name="model_id" ref="model_binotel_calls"/>
+        <field name="code">model._load_calls()</field>
+        <field name="state">code</field>
+        <field name="active" eval="False"/>
+    </record>
+
+    <record id="binotel_ticket_tag" model="helpdesk.ticket.tag">
+        <field name="name">Binotel</field>
+        <field name="company_id" ref="base.main_company" />
+        <field name="active" eval="&quot;1&quot;" />
+    </record>
+    <record id="binotel_ticket_channel" model="helpdesk.ticket.channel">
+        <field name="name">Binotel</field>
+    </record>
+    <record id="binotel_ticket_category" model="helpdesk.ticket.category">
+        <field name="name">Binotel</field>
+        <field name="company_id" ref="base.main_company" />
+        <field name="active" eval="True" />
+    </record>
+
+</odoo>

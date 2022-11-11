@@ -1,0 +1,5 @@
+id,name,model_id:id,group_id:id,perm_read,perm_write,perm_create,perm_unlink
+binotel_calls_access,Binotel user rights,model_binotel_calls,res_groups_binotel_user,1,1,1,1
+binotel_users_access,Binotel user rights,model_binotel_users,res_groups_binotel_user,1,1,1,1
+binotel_partners_access,Binotel user rights,model_binotel_partners,res_groups_binotel_user,1,1,1,1
+binotel_partner_change_reg_access,Binotel user rights,model_binotel_partner_change_reg,res_groups_binotel_user,1,1,1,1
