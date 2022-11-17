@@ -67,6 +67,8 @@ class BinotelMethods(models.AbstractModel):
     @api.model
     def _exec_method(self, method_name: str, method_params: dict, params: dict) -> dict:
 
+        _logger.info('Executing method %s' % method_name)
+
         answer = {'status': ''}
 
         api_host = self.env['ir.config_parameter'].sudo().get_param('binotel.api_host', '')
@@ -75,6 +77,7 @@ class BinotelMethods(models.AbstractModel):
 
         if not api_host or not api_key or not secret:
             _logger.error('Binotel connection parameters are not set')
+            answer['status'] = 'Binotel connection parameters are not set'
             params['deny'] = True
             return answer
 
@@ -89,8 +92,6 @@ class BinotelMethods(models.AbstractModel):
         }
 
         url = self.form_url(api_host, method_name, params)
-        if params['deny']:
-            return answer
 
         response = requests.post(url=url, data=post_data.encode('utf-8'), headers=headers)
         if response.status_code == 200:
@@ -353,6 +354,7 @@ class BinotelUsers(models.Model):
         params = {'deny': False}
         answer = binotel._settings_list_of_employees(params)
         if params['deny']:
+            _logger.error(answer['status'])
             return
 
         users_dict = answer["listOfEmployees"]
