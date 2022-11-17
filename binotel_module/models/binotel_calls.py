@@ -252,7 +252,7 @@ class BinotelCalls(models.Model):
                                 for rec in call_by_phone_recs:
                                     if rec.ticket \
                                             and rec.ticket.partner_id:
-                                        client_id = rec.ticket.partner_id
+                                        client_id = rec.ticket.partner_id.id
                                         client_presentation = rec.ticket.partner_id.name
                                         break
                             else:
