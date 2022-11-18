@@ -131,6 +131,7 @@ class BinotelCalls(models.Model):
     phone = fields.Char('Phone number')
     binotel_user = fields.Many2one('binotel.users', 'User')
     ticket = fields.Many2one('helpdesk.ticket', 'Ticket')
+    call_datetime = fields.Datetime('Call Date&time')
 
     discarded_call_types = [
         "VM",  # голосовая почта без сообщения
@@ -210,7 +211,7 @@ class BinotelCalls(models.Model):
                     if not binotel_user_rec:
                         continue
 
-                    call_datetime = datetime.fromtimestamp(int(call["startTime"]), tz=timezone)
+                    call_datetime = datetime.fromtimestamp(int(call["startTime"]))
                     client_phone = call["externalNumber"]
                     call_id = call["generalCallID"]
 
@@ -218,7 +219,8 @@ class BinotelCalls(models.Model):
                         'call_id': call_id,
                         'duration': call_duration,
                         'phone': client_phone,
-                        'binotel_user': binotel_user_rec.id
+                        'binotel_user': binotel_user_rec.id,
+                        'call_datetime': call_datetime,
                     }
 
                     domain = [
@@ -267,13 +269,14 @@ class BinotelCalls(models.Model):
 
                         ticket_values = {
                             'name': ticket_name,
+                            'assigned_date': call_datetime,
                             'description': ticket_desc,
                             'user_id': binotel_user_rec.user_id.id,
                             'partner_id': client_id,
                             'tag_ids': [(4, self.env.ref('binotel_module.binotel_ticket_tag').id)],
                             'channel_id': self.env.ref('binotel_module.binotel_ticket_channel').id,
                             'category_id': self.env.ref('binotel_module.binotel_ticket_category').id,
-
+                            'duration': float(call_duration) / 3600.0,
                         }
                         ticket = self.env['helpdesk.ticket'].create([ticket_values])
                         call_rec.ticket = ticket.id

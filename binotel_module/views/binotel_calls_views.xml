@@ -10,6 +10,7 @@
         <field name="arch" type="xml">
             <tree editable="bottom">
                 <field name="call_id" />
+                <field name="call_datetime" />
                 <field name="duration" />
                 <field name="phone" />
                 <field name="binotel_user" />
