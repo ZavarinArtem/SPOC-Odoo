@@ -191,7 +191,7 @@ class BinotelCalls(models.Model):
         min_call_duration = int(self.env['ir.config_parameter'].sudo().get_param('binotel.min_call_duration', 0))
         timezone = datetime.now().astimezone().tzinfo
         model_binotel_calls = self.env['binotel.calls'].sudo()
-        model_clients = self.env['res.partner'].sudo()
+        model_partners = self.env['res.partner'].sudo()
 
         for calls_data in calls_data_list:
             calls = calls_data['callDetails']
@@ -243,36 +243,31 @@ class BinotelCalls(models.Model):
                     ticket_id = call_rec.ticket
                     if not ticket_id:
                         # creating new ticket
-                        client_id = 0
-                        client_presentation = ''
 
-                        client_rec = model_clients.search([('phone', '=', client_phone)], limit=1)
-                        if not client_rec:
+                        partner_id = model_partners.search([('phone', '=', client_phone)], limit=1)
+                        if not partner_id:
                             # try to search existing call recs with the same phone
                             call_by_phone_recs = model_binotel_calls.search(['&', ('phone', '=', client_phone), ('call_id', '!=', call_id)])
                             if call_by_phone_recs:
                                 for rec in call_by_phone_recs:
                                     if rec.ticket \
                                             and rec.ticket.partner_id:
-                                        client_id = rec.ticket.partner_id.id
-                                        client_presentation = rec.ticket.partner_id.name
+                                        partner_id = rec.ticket.partner_id
                                         break
-                            else:
-                                client_presentation = client_phone
-                        else:
-                            client_id = client_rec.id
-                            client_presentation = client_rec.name
 
-                        ticket_name = _('[%s] - Phone call: %s') % (client_presentation, client_phone)
+                        partner_presentation = partner_id.name if partner_id else client_phone
+
+                        ticket_name = _('[%s] - Phone call: %s') % (partner_presentation, client_phone)
                         ticket_desc = _('Phone call from a client. Date: %s, duration %s \n Client: %s') % (
-                            call_datetime, self._form_duration_representation(call_duration), client_presentation)
+                            call_datetime, self._form_duration_representation(call_duration), partner_presentation)
 
                         ticket_values = {
                             'name': ticket_name,
                             'assigned_date': call_datetime,
                             'description': ticket_desc,
                             'user_id': binotel_user_rec.user_id.id,
-                            'partner_id': client_id,
+                            'partner_id': partner_id.id,
+                            'partner_name': partner_presentation,
                             'tag_ids': [(4, self.env.ref('binotel_module.binotel_ticket_tag').id)],
                             'channel_id': self.env.ref('binotel_module.binotel_ticket_channel').id,
                             'category_id': self.env.ref('binotel_module.binotel_ticket_category').id,
