@@ -1,5 +1,5 @@
 {
-    "name": "Vendor code",
+    "name": "Vendor Code for Product",
     "summary": """
         Vendor's Code For Product Template""",
     "description": """
@@ -7,11 +7,13 @@
     """,
     "author": "SPOC",
     "website": "https://spoc-odoo.com.ua/",
-    'company': 'SPOC corp',
-    'maintainer': 'SPOC corp',
-    'license': 'LGPL-3',
+    "company": "SPOC corp",
+    "maintainer": "SPOC corp",
+    "license": "LGPL-3",
     "category": "Sales/Sales",
     "version": "15.0.1.0.2",
+    "application": False,
+    "installable": True,
     "depends": ["product"],
     "data": [
         "views/views.xml",

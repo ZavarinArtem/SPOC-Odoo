@@ -22,7 +22,7 @@ class AccountMove(models.Model):
                     False,
                     locale_code,
                     "currency",
-                    currency=self.currency_id.with_context(lang='en_US').name,
+                    currency=self.currency_id.with_context(lang="en_US").name,
                 ),
             )
         else:
@@ -31,7 +31,7 @@ class AccountMove(models.Model):
                 False,
                 locale_code,
                 "currency",
-                currency=self.currency_id.with_context(lang='en_US').name,
+                currency=self.currency_id.with_context(lang="en_US").name,
             )
 
 
@@ -43,17 +43,17 @@ class AccountMoveLine(models.Model):
         self.ensure_one()
 
         if not self.product_id:
-            return ''
+            return ""
 
         product = self.product_id
 
         values = []
         if product.partner_ref:
             values.append(product.name)
-        if self.journal_id.type == 'sale':
+        if self.journal_id.type == "sale":
             if product.description_sale:
                 values.append(product.description_sale)
-        elif self.journal_id.type == 'purchase':
+        elif self.journal_id.type == "purchase":
             if product.description_purchase:
                 values.append(product.description_purchase)
-        return '\n'.join(values)
+        return "\n".join(values)

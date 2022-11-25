@@ -29,7 +29,7 @@ class Partner(models.Model):
 
 class CountryState(models.Model):
 
-    _inherit = 'res.country.state'
+    _inherit = "res.country.state"
 
     name = fields.Char(translate=True)
 
@@ -42,5 +42,5 @@ class Currency(models.Model):
 
 class Bank(models.Model):
 
-    _inherit = 'res.bank'
+    _inherit = "res.bank"
     name = fields.Char(translate=True)
