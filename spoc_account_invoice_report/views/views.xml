@@ -1,7 +1,7 @@
 <odoo>
     <data>
         <record model="ir.ui.view" id="view_partner_form">
-            <field name="name">spoc_module.res.partner.form</field>
+            <field name="name">spoc_account_invoice_report.res.partner.form</field>
             <field name="model">res.partner</field>
             <field name="inherit_id" ref="base.view_partner_form" />
             <field name="arch" type="xml">
@@ -17,7 +17,7 @@
         </record>
 
         <record model="ir.ui.view" id="view_partner_bank_form">
-            <field name="name">spoc_module.res.partner.bank.form</field>
+            <field name="name">spoc_account_invoice_report.res.partner.bank.form</field>
             <field name="model">res.partner.bank</field>
             <field name="inherit_id" ref="base.view_partner_bank_form" />
             <field name="arch" type="xml">
