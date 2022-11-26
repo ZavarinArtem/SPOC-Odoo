@@ -41,7 +41,7 @@
 
                         <div style="font-family:'Times New Roman'; ">
                             <p align="center">
-                                <img src="spoc_account_invoice_report/static/src/logo.jpg" width="846" height="175"
+                                <img src="/spoc_account_invoice_report/static/src/logo.jpg" width="846" height="175"
                                      alt=""/>
                             </p>
                             <p style="font-size:10pt">
@@ -452,7 +452,7 @@
                                         </p>
                                         <p style="text-align:justify; font-size:9pt">
                                             <span style="height:0pt; text-align:left; display:block; position:absolute; z-index:-1">
-                                                <img src="spoc_account_invoice_report/static/src/seal.png"
+                                                <img src="/spoc_account_invoice_report/static/src/seal.png"
                                                      width="184" height="153" alt=""
                                                      style="margin-top:60.65pt; margin-left:162.2pt; -aw-left-pos:162.2pt; -aw-rel-hpos:column; -aw-rel-vpos:paragraph; -aw-top-pos:60.65pt; -aw-wrap-type:none; position:absolute;"/>
                                             </span>
