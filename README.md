@@ -1,0 +1,2 @@
+# SPOC-Odoo
+local modules
