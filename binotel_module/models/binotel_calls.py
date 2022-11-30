@@ -290,9 +290,7 @@ class BinotelCalls(models.Model):
                             continue
                         else:
                             call_rec.write(
-                                [
-                                    binotel_call_data,
-                                ]
+                                binotel_call_data
                             )
                     else:
                         # creating new call record
