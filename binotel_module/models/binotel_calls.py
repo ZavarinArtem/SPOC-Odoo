@@ -518,6 +518,7 @@ class ResPartner(models.Model):
             registered = register.search([("partner_id", "=", rec.id)])
             if not registered:
                 register.create([{"partner_id": rec.id}])
+        return super(ResPartner, self).write(vals)
 
 
 class BinotelPartnersChangeReg(models.Model):
