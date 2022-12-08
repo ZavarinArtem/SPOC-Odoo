@@ -3,6 +3,7 @@
 import json
 import hashlib
 import time
+import pytz
 from datetime import date, datetime
 
 import requests
@@ -234,7 +235,8 @@ class BinotelCalls(models.Model):
             .sudo()
             .get_param("binotel.min_call_duration", 0)
         )
-        timezone = datetime.now().astimezone().tzinfo
+        user_tz = self.env.user.tz or self.env.context.get('tz')
+        user_pytz = pytz.timezone(user_tz) if user_tz else pytz.utc
         model_binotel_calls = self.env["binotel.calls"].sudo()
         model_partners = self.env["res.partner"].sudo()
 
@@ -260,7 +262,7 @@ class BinotelCalls(models.Model):
                     if not binotel_user_rec:
                         continue
 
-                    call_datetime = datetime.fromtimestamp(int(call["startTime"]))
+                    call_datetime = datetime.fromtimestamp(int(call["startTime"]), tz=user_pytz)
                     client_phone = call["externalNumber"]
                     call_id = call["generalCallID"]
 
