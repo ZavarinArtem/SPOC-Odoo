@@ -262,7 +262,7 @@ class BinotelCalls(models.Model):
                     if not binotel_user_rec:
                         continue
 
-                    call_datetime = datetime.fromtimestamp(int(call["startTime"]), tz=user_pytz)
+                    call_datetime = datetime.fromtimestamp(int(call["startTime"]))
                     client_phone = call["externalNumber"]
                     call_id = call["generalCallID"]
 
@@ -335,7 +335,7 @@ class BinotelCalls(models.Model):
                         ticket_desc = _(
                             "Phone call from a client. Date: %s, duration %s \n Client: %s"
                         ) % (
-                            call_datetime,
+                            call_datetime.astimezone(user_pytz).strftime('%Y-%m-%d %H:%M:%S'),
                             self._form_duration_representation(call_duration),
                             partner_presentation,
                         )
