@@ -18,6 +18,7 @@
     "depends": [
         "helpdesk_mgmt",
         "spoc_hd_addons",
+        "phone_validation",
     ],
     "data": [
         "data/binotel_calls.xml",

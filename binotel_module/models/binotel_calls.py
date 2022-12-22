@@ -235,7 +235,7 @@ class BinotelCalls(models.Model):
             .sudo()
             .get_param("binotel.min_call_duration", 0)
         )
-        user_tz = self.env.user.tz or self.env.context.get('tz')
+        user_tz = self.env.user.tz or self.env.context.get("tz")
         user_pytz = pytz.timezone(user_tz) if user_tz else pytz.utc
         model_binotel_calls = self.env["binotel.calls"].sudo()
         model_partners = self.env["res.partner"].sudo()
@@ -291,9 +291,7 @@ class BinotelCalls(models.Model):
                             )
                             continue
                         else:
-                            call_rec.write(
-                                binotel_call_data
-                            )
+                            call_rec.write(binotel_call_data)
                     else:
                         # creating new call record
                         call_rec = model_binotel_calls.create(
@@ -307,7 +305,10 @@ class BinotelCalls(models.Model):
                         # creating new ticket
 
                         partner_id = model_partners.search(
-                            [("phone", "=", client_phone)], limit=1
+                            [
+                                ("phone_mobile_search", "ilike", client_phone),
+                            ],
+                            limit=1,
                         )
                         if not partner_id:
                             # try to search existing call recs with the same phone
@@ -319,7 +320,7 @@ class BinotelCalls(models.Model):
                                 ]
                             )
                             if call_by_phone_recs:
-                                call_by_phone_recs.sorted('call_datetime', True)
+                                call_by_phone_recs.sorted("call_datetime", True)
                                 for rec in call_by_phone_recs:
                                     if rec.ticket and rec.ticket.partner_id:
                                         partner_id = rec.ticket.partner_id
@@ -336,7 +337,9 @@ class BinotelCalls(models.Model):
                         ticket_desc = _(
                             "Phone call from a client. Date: %s, duration %s \n Client: %s"
                         ) % (
-                            call_datetime.astimezone(user_pytz).strftime('%Y-%m-%d %H:%M:%S'),
+                            call_datetime.astimezone(user_pytz).strftime(
+                                "%Y-%m-%d %H:%M:%S"
+                            ),
                             self._form_duration_representation(call_duration),
                             partner_presentation,
                         )
@@ -469,8 +472,10 @@ class BinotelUsers(models.Model):
                     email_domain = [("email", "ilike", email)]
                     domain = odoo.osv.expression.OR([domain, email_domain])
                 if phone:
-                    email_domain = [("phone", "ilike", phone)]
-                    domain = odoo.osv.expression.OR([domain, email_domain])
+                    phone_domain = [
+                        ("phone_mobile_search", "ilike", phone),
+                    ]
+                    domain = odoo.osv.expression.OR([domain, phone_domain])
                 domain = odoo.osv.expression.AND(
                     [domain, [("active", "in", (True, False))]]
                 )
