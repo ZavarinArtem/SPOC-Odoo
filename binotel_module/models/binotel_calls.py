@@ -239,6 +239,11 @@ class BinotelCalls(models.Model):
         user_pytz = pytz.timezone(user_tz) if user_tz else pytz.utc
         model_binotel_calls = self.env["binotel.calls"].sudo()
         model_partners = self.env["res.partner"].sudo()
+        search_partners_in_prev_calls = bool(
+            self.env["ir.config_parameter"]
+            .sudo()
+            .get_param("binotel.search_partners_in_prev_calls", 0)
+        )
 
         for calls_data in calls_data_list:
             calls = calls_data["callDetails"]
@@ -310,7 +315,7 @@ class BinotelCalls(models.Model):
                             ],
                             limit=1,
                         )
-                        if not partner_id:
+                        if not partner_id and search_partners_in_prev_calls:
                             # try to search existing call recs with the same phone
                             call_by_phone_recs = model_binotel_calls.search(
                                 [

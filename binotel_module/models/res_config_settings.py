@@ -14,3 +14,4 @@ class ResConfigSettings(models.TransientModel):
     min_call_duration = fields.Integer(
         "Min Call Duration", config_parameter="binotel.min_call_duration"
     )
+    search_partners_in_prev_calls = fields.Boolean("Search Partners in Previous Calls")

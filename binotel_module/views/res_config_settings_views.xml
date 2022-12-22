@@ -20,7 +20,7 @@
                 <xpath expr="//div[hasclass('settings')]" position="inside">
                     <div class="app_settings_block" data-string="Binotel" string="Binotel" data-key="binotel_module" groups="binotel_module.res_groups_binotel_admin">
                         <h2>Connection Settings</h2>
-                        <div class="row mt16 o_settings_container" name="default_taxes_setting_container">
+                        <div class="row mt16 o_settings_container">
                             <div class="col-12 col-lg-6 o_setting_box">
                                 <div class="o_setting_left_pane"/>
                                 <div class="o_setting_right_pane">
@@ -42,15 +42,23 @@
                             </div>
                         </div>
                         <h2>Other</h2>
-                        <div class="row mt16 o_settings_container" name="default_taxes_setting_container">
+                        <div class="row mt16 o_settings_container">
                             <div class="col-12 col-lg-6 o_setting_box">
-                                <div class="o_setting_left_pane"/>
+                                <div class="o_setting_left_pane">
+                                </div>
                                 <div class="o_setting_right_pane">
-                                    <div class="content-group">
-                                        <div class="row mt16">
-                                            <label string="Minimal Call Duration" for="min_call_duration" class="col-lg-3 o_light_label"/>
-                                            <field name="min_call_duration" />
-                                        </div>
+                                    <label string="Minimal Call Duration" for="min_call_duration" />
+                                    <field name="min_call_duration" />
+                                </div>
+                            </div>
+                            <div class="col-12 col-lg-6 o_setting_box">
+                                <div class="o_setting_left_pane">
+                                    <field name="search_partners_in_prev_calls" />
+                                </div>
+                                <div class="o_setting_right_pane">
+                                    <label string="Search Partners in Previous Calls" for="search_partners_in_prev_calls" />
+                                    <div class="text-muted">
+                                        If partner isn't found by phone, try to search if there are previous calls with this phone number, and fetch partner from them.
                                     </div>
                                 </div>
                             </div>
