@@ -319,6 +319,7 @@ class BinotelCalls(models.Model):
                                 ]
                             )
                             if call_by_phone_recs:
+                                call_by_phone_recs.sorted('call_datetime', True)
                                 for rec in call_by_phone_recs:
                                     if rec.ticket and rec.ticket.partner_id:
                                         partner_id = rec.ticket.partner_id
