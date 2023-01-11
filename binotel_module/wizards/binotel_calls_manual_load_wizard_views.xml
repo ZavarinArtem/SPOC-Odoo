@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+    <record id="binotel_calls_manual_load_wizard_form" model="ir.ui.view">
+        <field name="name">binotel.calls.manual.load.wizard.form</field>
+        <field name="model">binotel.calls.manual.load.wizard</field>
+        <field name="arch" type="xml">
+            <form>
+
+                <label for="start_date" string="Period"/>
+                <div class="o_row">
+                    <field name="start_date" class="oe_inline" widget="daterange"
+                           options="{'related_end_date': 'end_date'}"/>
+                    <i class="fa fa-long-arrow-right mx-2" aria-label="Arrow icon" title="Arrow"/>
+                    <field name="end_date" class="oe_inline" widget="daterange"
+                           options="{'related_start_date': 'start_date'}"/>
+                </div>
+                <footer>
+                    <button name="load_calls" id="load_calls" string="Load" type="object"
+                            class="btn-primary"/>
+                    <button string="Cancel" class="btn-secondary" special="cancel"/>
+                </footer>
+            </form>
+        </field>
+    </record>
+
+    <record id="binotel_calls_manual_load_wizard_action" model="ir.actions.act_window">
+        <field name="name">Load Calls from Period</field>
+        <field name="res_model">binotel.calls.manual.load.wizard</field>
+        <field name="view_mode">form</field>
+        <field name="target">new</field>
+    </record>
+
+    <menuitem
+            id="binotel_calls_manual_load_wizard_menu"
+            parent="binotel_settings_menu"
+            action="binotel_calls_manual_load_wizard_action"
+            groups="res_groups_binotel_user"
+    />
+</odoo>

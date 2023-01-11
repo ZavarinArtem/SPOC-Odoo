@@ -187,23 +187,25 @@ class BinotelCalls(models.Model):
     ]
 
     @api.model
-    def _load_calls(self, loading_date: date = None) -> None:
+    def _load_calls(self, start_date: date = None, end_date: date = None) -> None:
 
-        if not loading_date:
-            loading_date = date.today()
+        if not start_date:
+            start_date = date.today()
+        if not end_date:
+            end_date = date.today()
 
         date_start = datetime(
-            year=loading_date.year,
-            month=loading_date.month,
-            day=loading_date.day,
+            year=start_date.year,
+            month=start_date.month,
+            day=start_date.day,
             hour=0,
             minute=0,
             second=0,
         )
         date_end = datetime(
-            year=loading_date.year,
-            month=loading_date.month,
-            day=loading_date.day,
+            year=end_date.year,
+            month=end_date.month,
+            day=end_date.day,
             hour=23,
             minute=59,
             second=59,

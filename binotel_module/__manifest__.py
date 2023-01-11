@@ -27,5 +27,6 @@
         "views/binotel_calls_menu.xml",
         "views/binotel_calls_views.xml",
         "views/res_config_settings_views.xml",
+        "wizards/binotel_calls_manual_load_wizard_views.xml",
     ],
 }

@@ -3,3 +3,4 @@ binotel_calls_access,Binotel user rights,model_binotel_calls,res_groups_binotel_
 binotel_users_access,Binotel user rights,model_binotel_users,res_groups_binotel_user,1,1,1,1
 binotel_partners_access,Binotel user rights,model_binotel_partners,res_groups_binotel_user,1,1,1,1
 binotel_partner_change_reg_access,Binotel user rights,model_binotel_partner_change_reg,res_groups_binotel_user,1,1,1,1
+binotel_calls_manual_load_wizard_access,Manual Load rights,model_binotel_calls_manual_load_wizard,res_groups_binotel_user,1,1,1,1
